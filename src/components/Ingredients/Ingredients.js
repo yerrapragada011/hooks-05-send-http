@@ -7,31 +7,34 @@ import Search from './Search';
 const Ingredients = () => {
   const [userIngredients, setUserIngredients] = useState([]);
 
-  const addIngredientHandler = ingredient => {
-    fetch('https://react-hooks-update.firebaseio.com/ingredients.json', {
-      method: 'POST',
-      body: JSON.stringify(ingredient),
-      headers: { 'Content-Type': 'application/json' }
-    })
-      .then(response => {
+  const addIngredientHandler = (ingredient) => {
+    fetch(
+      'https://react-hooks-update-e8923-default-rtdb.firebaseio.com/ingredients.json',
+      {
+        method: 'POST',
+        body: JSON.stringify(ingredient),
+        headers: { 'Content-Type': 'application/json' },
+      }
+    )
+      .then((response) => {
         return response.json();
       })
-      .then(responseData => {
-        setUserIngredients(prevIngredients => [
+      .then((responseData) => {
+        setUserIngredients((prevIngredients) => [
           ...prevIngredients,
-          { id: responseData.name, ...ingredient }
+          { id: responseData.name, ...ingredient },
         ]);
       });
   };
 
-  const removeIngredientHandler = ingredientId => {
-    setUserIngredients(prevIngredients =>
-      prevIngredients.filter(ingredient => ingredient.id !== ingredientId)
+  const removeIngredientHandler = (ingredientId) => {
+    setUserIngredients((prevIngredients) =>
+      prevIngredients.filter((ingredient) => ingredient.id !== ingredientId)
     );
   };
 
   return (
-    <div className="App">
+    <div className='App'>
       <IngredientForm onAddIngredient={addIngredientHandler} />
 
       <section>
